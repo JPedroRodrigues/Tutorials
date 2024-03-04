@@ -29,7 +29,7 @@
 ssh -i ~/.ssh/labsuser.pem ec2-user@<public-i\p>
 ```
 
-- Change <public-ip> with the IPv4 public IP you copied
+- Change `<public-ip>` with the IPv4 public IP you copied
 	
 - Reference: https://labs.vocareum.com/web/3112326/2695337.0/ASNLIB/public/docs/lang/en-us/README.html#ssh
 
