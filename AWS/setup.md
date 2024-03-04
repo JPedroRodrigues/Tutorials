@@ -30,19 +30,19 @@ ssh -i ~/.ssh/labsuser.pem ec2-user@<public-i\p>
 ```
 
 - Change <public-ip> with the IPv4 public IP you copied
-	
+
 - Reference: https://labs.vocareum.com/web/3112326/2695337.0/ASNLIB/public/docs/lang/en-us/README.html#ssh
 
 ## Generating you SSH key
 - Just type
-	
+
 ```bash
 ssh-keygen
 ```
-	
+
 - Press enter until the key's randomart image is generated
 - An important thing to mention is that will be prompted to you the following question
-	
+
 > Enter file in which to save the key (/home/ec2-user/.ssh/id_rsa)
 
 - This path between parentheses is the path where your ssh key is stored
@@ -51,7 +51,7 @@ ssh-keygen
 ```bash
 cat <ssh key pat\h>
 ```
-	
+
 - Since our path is the one inside the parentheses, then we should run
 
 ```bash
