@@ -1,7 +1,5 @@
 # TLDR - Setting up an AWS instance and cloning a git repository with a ssh key
 
----
-
 ## Topics
 - [Starting things up](#starting-things-up)
 - [What's next? Let's configure a SSH key](#whats-next-lets-configure-a-ssh-key)
@@ -19,6 +17,8 @@
 - Make sure you are allowing SSH traffic (I choose from anywhere)
 - Now you can execute your instance
 
+---
+
 ## What's next? Let's configure a SSH key
 - You will see a feedback message confirming the creation
 - Click on the instance id, and open your VM details by clicking on its id again
@@ -32,6 +32,8 @@ ssh -i ~/.ssh/labsuser.pem ec2-user@<public-i\p>
 - Change <public-ip> with the IPv4 public IP you copied
 	
 - Reference: https://labs.vocareum.com/web/3112326/2695337.0/ASNLIB/public/docs/lang/en-us/README.html#ssh
+
+---
 
 ## Generating you SSH key
 - Just type
@@ -60,6 +62,8 @@ cat /home/ec2-user/.ssh/id_rsa.pub
 
 - Copy the whole key. It's big, isn't it?
 
+---
+
 ## Cloning a GitHub Repo with your SSH key
 - Now, create a GitHub repository or create in a version control system of your preference
 - Go to settings, select "deploy keys"
@@ -79,6 +83,8 @@ sudo dnf install git
 
 - Confirm what needs to be confirmed and wait until it's installed
 - Now you are capable of cloning your repo and making changes on it 
+
+---
 
 ## Running a Hello World example in Java
 - Install Red Hat OpenJdk using the following command
@@ -103,7 +109,7 @@ cat > Hello.java << HELLO
 > HELLO
 ```
 
-- "<< HELLO" is used to set an EOF, so you will need to type "HELLO" on the last line to end your Hello.java file
+- `<< HELLO` is used to set an EOF, so you will need to type "HELLO" on the last line to end your Hello.java file
 - Now, compile your file with
 
 ```bash
