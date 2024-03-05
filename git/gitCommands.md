@@ -9,7 +9,9 @@ Reference: https://git-scm.com/docs/gittutorial
 ### Topics
 - [Getting Started](#getting-started)
 - [Project History](#project-history)
-- []
+- [Branches](#branches)
+- [Git & Collaboration](#git--collaboration)
+- [Exploring History](#exploring-history)
 
 ---
 
@@ -78,7 +80,7 @@ git diff --cached
 git push
 ```
 
-# PROJECT HISTORY
+# Project History
 
 - View the history of changes
 
@@ -98,7 +100,7 @@ git log -p
 git log --stat --summary
 ```
 
-# BRANCHES
+# Branches
 
 - Create branch locally
 
@@ -166,7 +168,7 @@ git diff
 gitk
 ```
 
-# GIT & COLLABORATION
+# Git & Collaboration
 
 - Cloning a repo locally 
 
@@ -260,7 +262,7 @@ git branch -r
 git clone someone.org:home/someone/project myrepo
 ```
 
-# EXPLORING HISTORY
+# Exploring History
 
 - Showing some commit or the most recent of a branch
 
