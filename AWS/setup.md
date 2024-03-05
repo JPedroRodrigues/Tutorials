@@ -123,3 +123,8 @@ java Hello
 
 >> Hello, World!
 ```
+## Running C
+- Install gcc
+```bash
+sudo dnf install nano gcc
+``
