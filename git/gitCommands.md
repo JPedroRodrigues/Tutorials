@@ -195,7 +195,7 @@ git fetch home/friendProject/hisRepo master
 git log -p HEAD..FETCH_HEAD
 ```
 
-- Check what someone done since branches forked
+- Check what someone has done since branches forked
 
 ```git
 gitk HEAD..FETCH_HEAD
@@ -225,7 +225,7 @@ git fetch friend
 git log -p master..friend/master
 ```
 
-- Now you coudl merge or merging by pulling
+- Now you could merge or merging by pulling
 
 ```git
 git merge friend/master
@@ -341,13 +341,13 @@ git log master..stable  (will list commits made in the master bit not in the sta
 git log stable..master	(will list commits made in the stable but not in the master branch)
 ```
 
-- You can always visualize thte differences with more accuracy using gitk
+- You can always visualize the differences with more accuracy using gitk
 
 ```git
 gitk --since="2 weeks ago" <directory's name>
 ```
 
-- Difference between two specific files from two diferrent versions
+- Difference between two specific files from two different versions
 
 ```git
 git diff v2.5:Makefile HEAD:Makefile.in
