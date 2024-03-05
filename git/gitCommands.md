@@ -1,7 +1,8 @@
 # Today we're going to get in touch with some useful git commands
 
-- Hope you enjooooy it! ₍ᐢ•`ᴥ´•ᐢ₎
-- Puppy's reference: https://git-scm.com/docs/gittutorial
+Hope you enjooooy it! ₍ᐢ•`ᴥ´•ᐢ₎
+
+Reference: https://git-scm.com/docs/gittutorial
 
 ---
 
