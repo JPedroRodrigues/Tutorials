@@ -3,7 +3,7 @@
 ## Topics
 - [Starting things up](#starting-things-up)
 - [What's next? Let's configure a SSH key](#whats-next-lets-configure-a-ssh-key)
-- [Generating you SSH key](#generating-you-ssh-key)
+- [Generating your SSH key](#generating-your-ssh-key)
 - [Cloning a GitHub Repo with your key](#cloning-a-github-repo-with-your-ssh-key)
 
 ---
@@ -35,7 +35,7 @@ ssh -i ~/.ssh/labsuser.pem ec2-user@<public-i\p>
 
 ---
 
-## Generating you SSH key
+## Generating your SSH key
 - Just type
 	
 ```bash
