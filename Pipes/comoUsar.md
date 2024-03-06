@@ -27,7 +27,7 @@ if (pipe(fd) == -1) {
         exit(1);
 }
 ```
-### example: 
+### Example: 
 In this example we will transfer a message from the parent to the child
 
 ```
@@ -96,3 +96,66 @@ Because we are gonna READ we will close the WRITE Pipe on this side
     return(0);
 }
 ```
+![Resulst](https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEglptUwgF4sVwpE6raSVfIbxkP6xtgDFKRwzsJTMDwB_M0KaVLqdUDXPYbidHKyWuwnwD1qedCMyhnlvWP6-auqBEA6HAFQlWSDnr5zzWT2pVdLlFJHg7YrqFprUv6dlsVGwKbZf5lUsz4/s1600/pipes-em-c-como-enviar-string.png)
+
+
+
+## Let's dive deeper
+### Pipes behave
+**FIFO**
+(First in First out)
+
+**Queue:**
+Pipe behave like a data structure.  
+
+**512**
+Size of read and write don’t have to match here. We can write 512 bytes at a time but only read  1 byte at a time in a pipe.
+
+
+### Let`s see this behavior
+```
+#include <stdio.h> 
+#include <unistd.h> 
+char* msg1 = "hello, world #1"; 
+char* msg2 = "hello, world #2"; 
+char* msg3 = "hello, world #3"; 
+
+int main() 
+{ 
+	char inbuf[16]; 
+	int p[2], pid, nbytes; 
+
+	if (pipe(p) < 0) 
+		exit(1); 
+
+	// Here we are queuing some mensages
+	if ((pid = fork()) > 0) { 
+	    close(fd[0]);
+		write(p[1], msg1, 16); 
+		write(p[1], msg2, 16); 
+		write(p[1], msg3, 16); 
+		wait(NULL); 
+	} 
+
+    // Here we are dequeuing the mensages
+	else { 
+		close(p[1]); 
+		while ((nbytes = read(p[0], inbuf, 16)) > 0) 
+			printf("% s\n", inbuf); 
+		if (nbytes != 0) 
+			exit(2); 
+		printf("Finished reading\n"); 
+	} 
+	return 0; 
+} 
+
+```
+OUTPUT
+```S
+hello world, #1
+hello world, #2
+hello world, #3
+(hangs) //program does not terminate but hangs because of the "wait(NULL);"
+```
+
+
