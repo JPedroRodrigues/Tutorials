@@ -67,12 +67,12 @@ Because the parent will WRITE, we will close the READ Pipe on this side
     /* Parent Process */
     if (pid > 0)
     {
-        close(fd[0]); <--- closing the read end
+        close(fd[0]); //<--- closing the read end
 
         char str[256] = "I learned how to use Pipes in C!";
         printf("String sent by the parent in the Pipe: '%s'", str);
 
-        write(fd[1], str, sizeof(str) + 1); <--- Writing the string to the pipe
+        write(fd[1], str, sizeof(str) + 1); //<--- Writing the string to the pipe
         // sizeof(str) + 1 is to accommodate the \0 character, which delimits a string.
         exit(0);
     }
@@ -84,10 +84,10 @@ Because we are gonna READ we will close the WRITE Pipe on this side
     {
         char str_received[256];
         
-        close(fd[1]); <--- closing the write end
+        close(fd[1]); //<--- closing the write end
 
-        /* Reading what was written to the pipe, and storing it in 'str_recebida' */
-        read(fd[0], str_recebida, sizeof(str_recebida));
+        /* Reading what was written to the pipe, and storing it in 'str_received' */
+        read(fd[0], str_recebida, sizeof(str_received));
 
         printf("String read by the child in the Pipe: '%s'\n\n", str_received);
         exit(0);
