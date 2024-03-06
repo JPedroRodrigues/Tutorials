@@ -130,7 +130,7 @@ int main()
 
 	// Here we are queuing some mensages
 	if ((pid = fork()) > 0) { 
-	    close(fd[0]);
+	    close(p[0]);
 		write(p[1], msg1, 16); 
 		write(p[1], msg2, 16); 
 		write(p[1], msg3, 16); 
