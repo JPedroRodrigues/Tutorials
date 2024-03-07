@@ -5,17 +5,16 @@
 References: 
 - https://www.programacaoprogressiva.net/2014/09/Pipes-em-C-Comunicao-entre-Processos-IPC-Interprocess-Communication.html
 - https://www.geeksforgeeks.org/pipe-system-call/
-- https://www.geeksforgeeks.org/pipe-system-call/
 
 ---
 
 ## What are pipes ?
 
-When dealing with process it is normal to want to transmit information between them,  so for this problem, pipes and relating syscalls  were created.
+hen dealing with processes it is normal to want to transmit information between them, so pipes and related syscalls were created for this problem.
 
-In a pipe information can only flow in one way so we need two things to define a pipe, a integer to define the sdt input [read()] and another to define the sdt output [write()], this are the file descriptors for our pipe, so in reality we only need a vector with two position.
+In a pipe, information can only flow one way, so we need two things to define a pipe, an integer to define the input sdt[read()] and another to define the output sdt[write()], these are the file descriptors for our pipe, so in reality we just need a vector with two positions.
 
-The first element (element 0) of the vector defines the reading (output) of data, and the second element (with index 1) defines the writing of data to the pipe (input).  **V[READ, WRITE]**.
+The first element (element 0) of the vector defines the reading (output) of the data, and the second element (with index 1) defines the writing of the data to the pipe (input). **V[READ, WRITE]**.
 
 ## How to Program ?
 ```
@@ -59,9 +58,9 @@ int main(void)
         exit(1);
     }
 ```
-Because the parent will WRITE, we will close the READ Pipe on this side
+Since the parent will WRITE, we will close the READ Pipe on this side
 
-(failure in to do can cause an infinity loop)
+(failure to do so may cause an infinite loop)
 ```
     
     /* Parent Process */
@@ -77,7 +76,7 @@ Because the parent will WRITE, we will close the READ Pipe on this side
         exit(0);
     }
 ```
-Because we are gonna READ we will close the WRITE Pipe on this side
+Since the child will READ we will close the WRITE Pipe on this side
 ```
     /* Child Process */
     else
@@ -109,7 +108,7 @@ Because we are gonna READ we will close the WRITE Pipe on this side
 Pipe behave like a data structure.  
 
 **512**
-Size of read and write don’t have to match here. We can write 512 bytes at a time but only read  1 byte at a time in a pipe.
+The read and write size do not need to match here. We can write 512 bytes at a time but read only 1 byte at a time on a pipe.
 
 
 ### Let`s see this behavior
