@@ -10,7 +10,7 @@ References:
 
 ## What are pipes ?
 
-hen dealing with processes it is normal to want to transmit information between them, so pipes and related syscalls were created for this problem.
+When dealing with processes it is normal to want to transmit information between them, so pipes and related syscalls were created for this problem.
 
 In a pipe, information can only flow one way, so we need two things to define a pipe, an integer to define the input sdt[read()] and another to define the output sdt[write()], these are the file descriptors for our pipe, so in reality we just need a vector with two positions.
 
