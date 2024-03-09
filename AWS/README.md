@@ -120,7 +120,9 @@ javac Hello.java
 
 ```bash
 java Hello
+```
 
+```bash
 >> Hello, World!
 ```
 ## Running C
@@ -168,6 +170,8 @@ gcc helloWorld.c -o helloWorld.out
 
 ```bash
 ./helloWorld.out
+```
 
+```bash
 >> Hello, world! :^)
 ```
