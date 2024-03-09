@@ -305,10 +305,9 @@ git diff <commit's tag/name> <other commit's tag/name>
 git branch <new branch's name> <commit's tag/name>
 ```
 
-- Resets a branch based on a previous state
-	- Be careful using this lil command right here as it will force other devs
-	- to pull and make new merges. Also, it deletes your subsequent commits
-	- Try git revert to undo changes that you have pushed
+- Resets a branch based on a previous stat>
+> [!WARNING]
+> Be careful using this lil command right here as it will force other devs to pull and make new merges. Also, it deletes your subsequent commits. Try `git revert` to undo changes that you have pushed.
 
 ```git
 git reset --hard HEAD^
