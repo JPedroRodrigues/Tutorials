@@ -169,5 +169,5 @@ gcc helloWorld.c -o helloWorld.out
 ```bash
 ./helloWorld.out
 
-> "Hello, world! :^)"
+>> Hello, world! :^)
 ```
