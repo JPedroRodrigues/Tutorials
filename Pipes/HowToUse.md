@@ -1,6 +1,6 @@
 # Now we are goint to explore what and how to use pipes in c
 
-Written by: [Enzo Guarnieri](https://github.com/enzo-guarnieri)
+Written by [Enzo Guarnieri](https://github.com/enzo-guarnieri)
 
 ## Topics
 
