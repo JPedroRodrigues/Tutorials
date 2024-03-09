@@ -26,7 +26,7 @@
 - Assuming you selected vockey key pair and have opened TCP port 22 (automatically) in the instance's security group. On your AWS terminal, run the following command
 
 ```bash
-ssh -i ~/.ssh/labsuser.pem ec2-user@<public-i\p>
+ssh -i ~/.ssh/labsuser.pem ec2-user@<public-ip>
 ```
 
 - Change `<public-ip>` with the IPv4 public IP you copied
@@ -51,7 +51,7 @@ ssh-keygen
 - To check your brand new key, run the following command
 
 ```bash
-cat <ssh key pat\h>
+cat <ssh key path>
 ```
 	
 - Since our path is the one inside the parentheses, then we should run
@@ -72,7 +72,7 @@ cat /home/ec2-user/.ssh/id_rsa.pub
 - In your repo's github page, clone it by using the ssh command
 
 ```bash
-git clone git@github.com:<repo\'s url>
+git clone git@github.com:<repo's url>
 ```
 
 - To install git on your VM, type
