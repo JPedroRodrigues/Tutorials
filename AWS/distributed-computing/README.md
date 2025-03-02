@@ -15,6 +15,8 @@ Após isso, basta clicar neste mesmo ícone verde.
 
 ## Criando Instâncias EC2
 
+Neste trecho do tutorial, vamos criar uma insância master e mais três workers, todos iguais entre si.
+
 ### Instância Master
 
 Ao entrar no console da AWS, não perca tempo e vá direto à barra de pesquisa. Busque por EC2 e clique na primeira opção, de mesmo nome, e, no painel, clique em Launch Instance.
@@ -43,7 +45,7 @@ Antes de concluir essa etapa, abra em uma nova janela o *cloud shell* da AWS, qu
 
 ![cloud shell icon](./assets/cloud-shell.png)
 
-Após abri-lo, basta ir em: Actions -> Upload File -> Carregue o arquivo `.pem` recém-criado e baixado por você. Este arquivo será fundamental para o estabelecimento da conexão entre as instâncias
+Após abri-lo, basta ir em: Actions -> Upload File -> Carregue o arquivo `.pem` recém-criado e baixado por você. Este arquivo será fundamental para o estabelecimento da conexão entre as instâncias.
 
 - Network Settings: Clique em *Create security group*
 
@@ -51,4 +53,12 @@ Feito isso, basta clicar em *Launch instance*, concluindo, assim, a criação da
 
 ### Instâncias Workers
 
-Antes de mais nada, ao voltar à listagem de instâncias, verá a recém-criada instância mestre
+Antes de mais nada, ao voltar à listagem de instâncias, verá a recém-criada instância mestre.
+
+![instances list](./assets/instances.png)
+
+O que faremos agora é seleciona-la e, após isso, clicar em *Launch instance*. Por que? Porque agora serão criadas todas as instâncias *workers*. Você pode adicionar uma *tag* a elas, como "*worker*-1", por exemplo. As configurações serão as mesmas que a da instância *master*. A única diferença tem relação com o *security group*, na seção *Networking Settings*. Nela, selecionaremos a opção *Select existing security group* e, no campo *select* que surgir logo abaixo, escolheremos o grupo *launch-wizard*, que foi criado no instante em que a instância mestre foi configurada.
+
+![select security group](./assets/select-security-group.png)
+
+Feito isso, basta finalizar a criação desta instância e replicar o processo para as outras duas restantes.
