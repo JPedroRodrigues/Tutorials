@@ -62,3 +62,93 @@ O que faremos agora é seleciona-la e, após isso, clicar em *Launch instance*. 
 ![select security group](./assets/select-security-group.png)
 
 Feito isso, basta finalizar a criação desta instância e replicar o processo para as outras duas restantes.
+
+## Estabelecendo Conexão Mútua Entre Instâncias
+
+No menu lateral esquerdo, dirija-se a *Security Groups*. Será aberta uma página em que há uma listagem de todos os grupos de segurança, incluindo o recém-criado *launch-wizard*.
+
+![security groups sidebar](./assets/security-groups.png)
+
+Clique no ID dele e, em seguida, na porção à direita da tela, clique em *Edit inbound rules*, ou "editar regras de entrada".
+
+![security groups ids](./assets/sec-ids.png)
+
+![edit inbound rules image](./assets/inbound-rules.png)
+
+Clique no botão *Add rule*, ou "Adicionar regra":
+
+![add a new inbound rule](./assets/add-rule.png)
+
+Escolha a opção *All TCP*:
+
+![all tcp option chosen](./assets/all-tcp.png)
+
+Agora, na mesma linha em que selecionou a opção *All TCP*, digite "sg" no campo em que há uma lupa e escolha a opção sugerida que menciona o *launch wizard*.
+
+![select sg that mentions launch wizard](./assets/sg-wizard.png)
+
+O que isso significa? Entre as instâncias, todas as portas estão ligadas, liberadas entre elas. Feito isso, salve a nova regra no botão *save rules*, situado no canto inferior direito.
+
+## Gerenciando chaves SSH
+
+Abra o cloud shell novamente e, de preferência, em uma nova janela do navegador. Após isso, para listar os arquivos, bem como todas as pastas ocultas da máquina, execute o comando:
+
+```shell
+ls -la
+```
+
+Perceba que a chave `.pem` que foi carregada na máquina também está presente na listagem. O que faremos é movê-la para a tradicional pasta `.ssh`. Para isso, execute os seguintes comandos:
+
+```shell
+# caso a pasta .ssh nao esteja presente, crie-a com o seguinte comando:
+# mkdir .ssh
+```
+
+```shell
+# mova a chave para a pasta .ssh
+mv yourKey.pem .ssh/
+```
+
+```shell
+# se dirija ate a pasta
+cd .ssh/
+```
+
+Volte à listagem de instâncias e selecione o primeiro worker criado por você, clicando em seu id. Na porção superior à direita do painel da instância, clique no botão *Connect* e dirija-se até a aba *SSH client*. Você será apresentado a essa tela:
+
+![connect instance page](./assets/connect-instance-page.png)
+
+Neste ambiente, são mostrados comandos com os quais é possível conectar de fato a instância à rede do cluster que estamos configurando.
+
+Voltando ao Cloud Shell, edite as permissões pertinentes à chave `.pem`. Para isso basta executar:
+
+```shell
+chmod 400 yourKey.pem
+```
+
+O que `400` significa nesse contexto?
+
+**4** - permissão de leitura apenas ao proprietário
+**0** - nenhuma permissão ao grupo
+**0** - nenhuma permissão a qualquer um
+
+Basicamente: é garantido somente o direito de leitura ao proprietário. Todo o restante, pertencente ou não ao grupo de máquinas, está proibido de fazer quaisquer ações com o arquivo.
+
+Feito isso, copie e execute o último comando da página de conexão da instância, que está na aba *SSH Client*, aberta recentemente. Ele é suficiente para conectar à rede o primeiro worker selecionado por você.
+
+Por fim, você será questionado do seguinte modo:
+
+```shell
+This key is not known by any other names
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+```
+
+A sua resposta será *yes* e sem pensar duas vezes. Quer saber o motivo? A máquina que está conectando nunca foi conectada antes ao servidor. O *fingerprint* nada mais é do que uma forma de verificar a identidade servidor ao qual você está tentando se conectar. Para isso, é feita uma checagem de um identificador gerado pela chave pública de criptografia.
+
+Para finalizar, basta repetir o mesmo processo para todas as outras máquinas. Utilizar o primeiro worker foi apenas um modo de padronizar as nossas ações neste tutorial. Se ainda tem dúvidas do que fazer:
+- selecione outra máquina e vá até a aba *SSH Client*;
+- copie o último comando, o de exemplo de conexão;
+- em uma nova aba do cloud shell, vá até a pasta `.ssh` por meio do comando `cd .ssh/`;
+- execute o comando, conectando-se à rede.
+
+Não é necessário modificar as permissões do seu arquivo `.pem`, uma vez que o cloud shell opera sobre uma máquina. O ato de abrir novas abas foi feito pois, conectando uma instância, o terminal sobre o qual você passa a operar é o da instância conectada, como é possível observar pelo nome que antecede o prompt de comando.
