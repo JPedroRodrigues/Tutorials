@@ -24,6 +24,8 @@ Ao entrar no console da AWS, não perca tempo e vá direto à barra de pesquisa.
 ![search ec2](./assets/aws-search-ec2.png)
 ![launch instance](./assets/launch-ec2.png)
 
+Antes de começarmos a configurar, certifique-se de dar um nome adequado à sua instância, no campo *Name and tags*. Neste caso, se tratando da primeira instância, é de bom grado conferir a ela o nome de *master*. As outras, consequentementes, serão chamadas de *worker1*, *worker2* e *worker3*.
+
 Para configurar a instância, basta seguir estas configurações:
 - Application and OS Images: Ubuntu
 
@@ -36,7 +38,7 @@ Para configurar a instância, basta seguir estas configurações:
 - Key pair (login):
   - Clique em *Create new key pair*
   - Dê um nome para a chave
-  - Mantenha RSA e .pem selecionados. Trata-se de uma chave simétrica, em que quem tiver acesso ao arquivo, terá também acesso irrestrito às máquinas. Por este motivo, tome cuidado, guarde o arquivo em um lugar seguro.
+  - Mantenha RSA e .pem selecionados. Trata-se de uma chave simétrica, em que quem tiver acesso ao arquivo, terá também acesso irrestrito às máquinas. Por este motivo, tome cuidado: guarde o arquivo em um lugar seguro.
   - Após a geração da chave, selecione-a no campo *Key pair name*
 
 ![create a .pem key](./assets/pem-key.png)
@@ -134,21 +136,28 @@ O que `400` significa nesse contexto?
 
 Basicamente: é garantido somente o direito de leitura ao proprietário. Todo o restante, pertencente ou não ao grupo de máquinas, está proibido de fazer quaisquer ações com o arquivo.
 
-Feito isso, copie e execute o último comando da página de conexão da instância, que está na aba *SSH Client*, aberta recentemente. Ele é suficiente para conectar à rede o primeiro worker selecionado por você.
+Em seguida, o próximo passo será copiar a chave `.pem` a essa instância configurada. Para isso, dentro da pasta `.ssh`, execute o seguinte comando:
 
-Por fim, você será questionado do seguinte modo:
+```bash
+scp -i yourKey.pem yourKey.pem ubuntu@<instance_name>:~/.ssh/
+```
+
+O `instance_name` faz referência ao nome dado à máquina criada. Como estamos utilizando o `worker-1` como exemplo, copie seu respectivo nome e substitua o campo com o mesmo.
+
+Você será questionado do seguinte modo:
 
 ```shell
 This key is not known by any other names
 Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
 ```
 
-A sua resposta será *yes* e sem pensar duas vezes. Quer saber o motivo? A máquina que está conectando nunca foi conectada antes ao servidor. O *fingerprint* nada mais é do que uma forma de verificar a identidade servidor ao qual você está tentando se conectar. Para isso, é feita uma checagem de um identificador gerado pela chave pública de criptografia.
+A sua resposta será *yes* e sem pensar duas vezes. Quer saber o motivo? A máquina que está enviando a chave nunca estabeleceu antes uma conexão com a instância. O *fingerprint* nada mais é do que uma forma de verificar a identidade servidor ao qual você está tentando se conectar. Para isso, é feita uma checagem de um identificador gerado pela chave pública de criptografia.
 
-Para finalizar, basta repetir o mesmo processo para todas as outras máquinas. Utilizar o primeiro worker foi apenas um modo de padronizar as nossas ações neste tutorial. Se ainda tem dúvidas do que fazer:
+Feito isso, copie e execute o último comando da página de conexão da instância, que está na aba *SSH Client*, aberta recentemente. Ele é suficiente para que seja possível se conectar a cada instância em sua respectiva janela no cloud shell.
+
+Como sugerido, para finalizar, basta repetir o mesmo processo para todas as outras máquinas, incluindo a master. Utilizar o primeiro worker foi apenas um modo de padronizar as nossas ações neste tutorial. Para isso, crie mais três (3) abas no terminal, uma para cada instância restante e, dentro da pasta `.ssh` em cada uma das janelas, siga os passos executados para a conexão com o primeiro worker.
+
+Se ainda tem dúvidas do que fazer:
 - selecione outra máquina e vá até a aba *SSH Client*;
+- copie a chave `.pem` à instância, executando o comando `scp` dentro da pasta `.ssh`;
 - copie o último comando, o de exemplo de conexão;
-- em uma nova aba do cloud shell, vá até a pasta `.ssh` por meio do comando `cd .ssh/`;
-- execute o comando, conectando-se à rede.
-
-Não é necessário modificar as permissões do seu arquivo `.pem`, uma vez que o cloud shell opera sobre uma máquina. O ato de abrir novas abas foi feito pois, conectando uma instância, o terminal sobre o qual você passa a operar é o da instância conectada, como é possível observar pelo nome que antecede o prompt de comando.
