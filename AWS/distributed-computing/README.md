@@ -161,3 +161,80 @@ Se ainda tem dúvidas do que fazer:
 - selecione outra máquina e vá até a aba *SSH Client*;
 - copie a chave `.pem` à instância, executando o comando `scp` dentro da pasta `.ssh`;
 - copie o último comando, o de exemplo de conexão;
+
+## Estabelecendo Conexão da Master com os Demais Workers
+
+Até este momento, você deve ter quatro (4) abas abertas, cada uma conectada a cada instância AWS. Faremos o seguinte: na aba no cloud shell em que a instância mestre está conectada, nos conectaremos aos demais workers, utilizando exatamente o último comando da seção *SSH Client*, frequentemente visitada no capítulo anterior.
+
+Para isso, basta:
+- em uma seção de um dos workers, copiar e executar o último comando na aba *SSH Client* (novamente, dentro da pasta `.ssh`);
+- confirmar a conexão, com o fingerprint;
+- apertar `ctrl + D`, para se desconectar e voltar à master;
+- repetir o processo para os demais workers.
+
+Lembre-se: este é um processo da master para os demais workers. O inverso não será feito.
+
+## Adicionando Chave Privada Ao Agente de Autenticação
+
+Diferentemente do processo anterior, os passos a serem seguidos neste capítulo serão realizados em todas as máquinas.
+
+Novamente, dentro da pasta `.ssh`:
+
+```bash
+eval `ssh-agent`
+```
+
+```bash
+ssh-add yourKey.pem
+```
+
+O próximo passo envolve adicionar o IP privado de cada instância à lista de hosts. Para isso, a partir da lista de instâncias, basta selecionar uma máquina e procurar pelo endereço IPv4 privado da máquina. Com esse endereço, será possível editar o arquivo de listagem de hosts do seguinte modo:
+
+```bash
+sudo nano /etc/hostos
+```
+
+O nano permitirá editar o arquivo `hosts`. Você pode optar pelo editor de texto de preferência. No arquivo, insira os IPs privados de cada instância juntamente com um alias para identifica-los:
+
+```
+172.31.18.50 master
+172.31.30.20 worker1
+172.31.24.79 worker2
+172.31.23.248 worker3
+```
+
+Tendo editado o arquivo em todas as instâncias, algumas particularidades precisam ser consideradas.
+
+### A Partir da Master
+
+Na master, execute o seguinte comando para cada um dos workers:
+
+```bash
+ssh ubuntu@workerN hostname
+```
+
+Por `N`, em `workerN`, entenda que pode ser um worker de qualquer numeração (worker1, worker2 ou worker3), já que esse comando será executado para cada um dos workers
+
+Você se deparará com a mesma confirmação de fingerprint como das últimas vezes. Aceitando, verá que o ip da máquina ao qual está solicitando o endereço aparecerá. Já está claro, mas perceba que esse tipo de pergunta não se repetirá ao executar o comando novamente.
+
+### A Partir dos Workers
+
+Com os workers, o processo será similar:
+
+```bash
+ssh ubuntu@master hostname
+```
+
+## Configurando a MPI
+
+Para instalarmos a MPI em cada um dos nós, basta executarmos o seguinte comando:
+
+```bash
+sudo apt update && sudo apt install openmpi-bin openmpi-common
+```
+
+Por fim, na master, para obter o IP de cada um dos workers utilizando-se da MPI:
+
+```bash
+mpirun --host worker1,worker2,worker3 hostname
+```
