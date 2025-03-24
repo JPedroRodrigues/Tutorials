@@ -191,7 +191,7 @@ ssh-add yourKey.pem
 O próximo passo envolve adicionar o IP privado de cada instância à lista de hosts. Para isso, a partir da lista de instâncias, basta selecionar uma máquina e procurar pelo endereço IPv4 privado da máquina. Com esse endereço, será possível editar o arquivo de listagem de hosts do seguinte modo:
 
 ```bash
-sudo nano /etc/hostos
+sudo nano /etc/hosts
 ```
 
 O nano permitirá editar o arquivo `hosts`. Você pode optar pelo editor de texto de preferência. No arquivo, insira os IPs privados de cada instância juntamente com um alias para identifica-los:
@@ -237,4 +237,30 @@ Por fim, na master, para obter o IP de cada um dos workers utilizando-se da MPI:
 
 ```bash
 mpirun --host worker1,worker2,worker3 hostname
+```
+
+## Exemplo de Execução de Programa usando MPI
+
+Nesta seção, vamos executar um programa simples de busca em vetor, utilizando-se da interface MPI. Para tal, vamos dispor de três arquivos:
+
+- `arraySearchMpi.c`;
+- `vetor1.csv`;
+- `vetor2.csv`
+
+### Como Copiar Arquivos às Instâncias Configuradas
+
+Antes de saber como mover, precisamos entender o que deve ser movido a cada uma das instâncias. Cada uma delas vai executar o programa `.c`, então este arquivo será enviado a todas as instâncias. Já os arquivos `.csv`, como serão lidos somente pela master, apenas essa instância precisa possuir uma cópia deles.
+
+Feita a análise, basta, primeiro, realizarmos o upload dos arquivos no cloud shell, utilizando-se da mesma estratégia empregada na primeira vez que a chave `.ssh` foi carregada. Para melhorarmos a nossa organização, vamos armazenar todos os arquivos em uma pasta, pois a mesma será útil para enviarmos todos os arquivos para a master.
+
+```shell
+scp -i your-key.pem -r ~/myFolder ubuntu@<instance-name>:~/
+```
+
+## Como Compilar MPI Na Master
+
+Antes de mais nada, certifique-se de que todas as dependências foram instaladas. O gcc, por exemplo, é instalado pelo `build-essential`.
+
+```shell
+sudo apt update && sudo apt install build-essential && sudo apt install openmpi-bin openmpi-common libopenmpi-dev
 ```
