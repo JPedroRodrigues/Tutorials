@@ -197,10 +197,10 @@ sudo nano /etc/hosts
 O nano permitirá editar o arquivo `hosts`. Você pode optar pelo editor de texto de preferência. No arquivo, insira os IPs privados de cada instância juntamente com um alias para identifica-los:
 
 ```
-172.31.18.50 master
-172.31.30.20 worker1
-172.31.24.79 worker2
-172.31.23.248 worker3
+<master_private_ip> master
+<worker-1_private_ip> worker1
+<worker-2_private_ip> worker2
+<worker-3_private_ip> worker3
 ```
 
 Tendo editado o arquivo em todas as instâncias, algumas particularidades precisam ser consideradas.
